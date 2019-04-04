@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 import json
 import os
 
@@ -11,6 +11,14 @@ app.isWorking = False
 @app.route('/tracker', methods=['GET', 'POST'])
 def track():
     if request.method == 'POST':
+        if not request.json:
+            response = make_response("Bad format: JSON expected")
+            response.status_code = 400
+            return response
+        if not 'data' in request.json:
+            response = make_response('Bad format: JSON does not contain "data" property')
+            response.status_code = 400
+            return response   
         app.trackingList.append(request.json['data'])
     
     return jsonify({'tracking': app.trackingList})
@@ -28,7 +36,7 @@ def setup():
     try:
         if os.path.exists(filename):
             app.filehandler = open(filename, 'r+')
-            app.trackingList = app.filehandler.readlines()
+            app.trackingList = app.filehandler.read().splitlines() 
             app.isWorking = True
         else:
             app.filehandler = open(filename, 'w')
