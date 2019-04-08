@@ -9,6 +9,8 @@ Es necesario Python 3 para poder ejecutarlo. Para no "ensuciar" la instalación 
 3. Instalamos los requisitos con `pip install -r requirements.txt`
 4. Ejecutamos el servidor con `python app/main.py`
 
+El fichero `setup-run.sh` hace todos los pasos descritos anteriormente.
+
 El servidor queda a la escucha en `localhost:8080`. Hay un punto de acceso con el que enviar nuevas trazas y ver las trazas almacenadas:
 
 - GET `localhost:8080/tracker`: devuelve una lista con las trazas almacenadas
