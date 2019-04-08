@@ -2,10 +2,12 @@
 
 Implementación de un servidor de prueba muy sencillo para conectar con él el sistema de telemetría desarrollado en la práctica 3 de Usabilidad y Análisis de Juegos. Está implementado en Python y Flask y guarda en un fichero las trazas que se van enviando.
 
-Es necesario Python 3 para poder ejecutarlo:
+Es necesario Python 3 para poder ejecutarlo. Para no "ensuciar" la instalación global de Python podemos hacer uso de un entorno virtual:
 
-- Instalar los requisitos con `pip install -r requirements.txt``
-- Ejecutar con `python app/main.py`
+1. Creamos el entorno virtual: `virtualenv .venv` o `python -m venv .venv`
+2. Activamos dicho entorno virtual: `source .venv/bin/activate`
+3. Instalamos los requisitos con `pip install -r requirements.txt`
+4. Ejecutamos el servidor con `python app/main.py`
 
 El servidor queda a la escucha en `localhost:8080`. Hay un punto de acceso con el que enviar nuevas trazas y ver las trazas almacenadas:
 
