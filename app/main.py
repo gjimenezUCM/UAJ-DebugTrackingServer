@@ -11,15 +11,20 @@ app.isWorking = False
 @app.route('/tracker', methods=['GET', 'POST'])
 def track():
     if request.method == 'POST':
-        if not request.json:
-            response = make_response("Bad format: JSON expected")
-            response.status_code = 400
-            return response
-        if not 'data' in request.json:
-            response = make_response('Bad format: JSON does not contain "data" property')
-            response.status_code = 400
-            return response   
-        app.trackingList.append(request.json['data'])
+        if request.content_type == 'application/json':
+            if not request.json:
+                response = make_response("Bad format: JSON expected")
+                response.status_code = 400
+                return response
+            if not 'data' in request.json:
+                response = make_response('Bad format: JSON does not contain "data" property')
+                response.status_code = 400
+                return response   
+            app.trackingList.append(request.json['data'])
+        if request.content_type == 'text/plain':
+            strData = request.get_data().decode("utf-8")
+            lines = strData.split("\r\n")
+            app.trackingList.extend(lines)
     
     return jsonify({'tracking': app.trackingList})
     
